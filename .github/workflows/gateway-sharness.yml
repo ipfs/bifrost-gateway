@@ -43,7 +43,7 @@ jobs:
           GOLOG_LOG_LEVEL: error,bifrost-gateway=debug
         run: |
           go build -o bifrost-gateway
-          ./bifrost-gateway --gateway-port 8083 > bifrost.log 2>&1 &
+          ./bifrost-gateway --gateway-port 8083 &
           sleep 5s
         working-directory: bifrost
       - name: Run Kubo Sharness Tests
@@ -53,8 +53,3 @@ jobs:
           TEST_GWAY_MADDR: /ip4/127.0.0.1/tcp/8083
         run: find . -maxdepth 1 -name "*gateway*.sh" ! -name "*t0400*.sh" ! -name "*t0111*.sh" -type f -print0 | xargs -0 -I {} bash -c "echo {}; {} -v"
         working-directory: kubo/test/sharness
-      - name: Upload Bifrost Logs
-        uses: actions/upload-artifact@v3
-        with:
-          name: bifrost-logs
-          path: ./bifrost/bifrost.log
