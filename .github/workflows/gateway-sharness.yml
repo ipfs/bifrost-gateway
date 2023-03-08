@@ -41,9 +41,11 @@ jobs:
           PROXY_GATEWAY_URL: http://127.0.0.1:60080 
           KUBO_RPC_URL: http://127.0.0.1:60050
         run: |
-          go run . --gateway-port 8083 &
+          go build -o bifrost-gateway
+          ./bifrost-gateway --gateway-port 8083 &
           sleep 5s
         working-directory: bifrost
+        shell: bash
       - name: Run Kubo Sharness Tests
         env:
           TEST_NODE_GWAY_MADDR: /ip4/127.0.0.1/tcp/60080
