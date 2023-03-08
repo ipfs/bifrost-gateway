@@ -40,6 +40,7 @@ jobs:
         env:
           PROXY_GATEWAY_URL: http://127.0.0.1:60080 
           KUBO_RPC_URL: http://127.0.0.1:60050
+          GOLOG_LOG_LEVEL: error,bifrost-gateway=debug
         run: |
           go build -o bifrost-gateway
           ./bifrost-gateway --gateway-port 8083 &
